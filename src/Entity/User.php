@@ -143,9 +143,9 @@ class User implements UserInterface
     {
         if ($this->articles->removeElement($article)) {
             // set the owning side to null (unless already changed)
-            if ($article->getAuthor() === $this) {
-                $article->setAuthor(null);
-            }
+            //if ($article->getAuthor() === $this) {
+            //    $article->setAuthor(null);
+            //}
         }
 
         return $this;
