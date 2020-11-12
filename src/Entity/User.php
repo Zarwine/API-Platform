@@ -41,6 +41,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ApiFilter(DateFilter::class, properties={"createdAt"})
  * @ApiFilter(ExistsFilter::class, properties={"updatedAt"})
  * @ApiFilter(OrderFilter::class, properties={"id"}, arguments={"orderParameterName"="order"})
+ * @UniqueEntity("email", message="Cet email est déja utilisé")
  */
 class User implements UserInterface
 {
@@ -50,6 +51,8 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"user_read", "user_details_read", "article_details_read"})
+     * @Assert\NotBlank(message="L'email est obligatoire")
+     * @Assert\Email(message="Format invalide")
      */
     private string $email;
 
@@ -67,6 +70,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="author", orphanRemoval=true)
      * @Groups({"user_details_read"})
+     * @Assert\NotBlank(message="Le mot de passe est obligatoire")
      */
     private Collection $articles;
 
