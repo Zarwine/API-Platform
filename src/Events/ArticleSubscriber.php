@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Events;
 
 use App\Entity\User;
-use App\Authorizations\ArticleAuthorizationChecker;
-use App\Authorizations\UserAuthorizationChecker;
-use ApiPlatform\Core\EventListener\EventPriorities;
+use App\Entity\Article;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelEvents;
+use App\Authorizations\UserAuthorizationChecker;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
+use ApiPlatform\Core\EventListener\EventPriorities;
+use App\Authorizations\ArticleAuthorizationChecker;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -34,7 +35,7 @@ class ArticleSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function encodePassword(ViewEvent $event): void
+    public function check(ViewEvent $event): void
     {
         $article = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();

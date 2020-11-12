@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Events;
 
 use App\Entity\User;
 use App\Authorizations\UserAuthorizationChecker;
