@@ -5,25 +5,23 @@ declare(strict_types=1);
 namespace App\Events;
 
 use App\Entity\User;
+use App\Entity\Article;
 use App\Authorizations\UserAuthorizationChecker;
 use ApiPlatform\Core\EventListener\EventPriorities;
+use App\Services\ResourceUpdatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UserSubscriber implements EventSubscriberInterface
+class ResourceUpdatorSubscriber implements EventSubscriberInterface
 {    
-    private array $methodNotAllowed = [
-        Request::METHOD_POST,
-        Request::METHOD_GET
-    ];
-    private UserAuthorizationChecker $userAuthorizationChecker;
+    private ResourceUpdatorInterface $resourceUpdator;
 
-    public function __construct(UserAuthorizationChecker $userAuthorizationChecker)
+    public function __construct(ResourceUpdatorInterface $resourceUpdator)
     {
-        $this->userAuthorizationChecker = $userAuthorizationChecker;
+        $this->resourceUpdator = $resourceUpdator;
     }
 
     public static function getSubscribedEvents()
@@ -35,12 +33,15 @@ class UserSubscriber implements EventSubscriberInterface
 
     public function check(ViewEvent $event): void
     {
-        $user = $event->getControllerResult();
-        $method = $event->getRequest()->getMethod();
+        $object = $event->getControllerResult();
 
-        if($user instanceof User && !in_array($method, $this->methodNotAllowed, true)) {
-            $this->userAuthorizationChecker->check($user, $method);
-            $user->setUpdatedAt(new \DateTimeImmutable());
+        if($object instanceof User || $object instanceof Article) {
+            $user = $object instanceof User ? $object : $object->getAuthor();
+
+            $canProcess = $this->resourceUpdator->process($event->getRequest()->getMethod(), $user);
+            if($canProcess){
+                $user->setUpdatedAt(new \DateTimeImmutable());
+            }
         }
     }
 }
