@@ -35,7 +35,28 @@ services:
         arguments: ['@App\Swagger\SwaggerDecorator.inner']
         autoconfigure: false
 
-    miniblog.event.jwt_created_listener:
+    miniblog_api.event.jwt_created_listener:
         class: App\EventListener\JWTCreatedListener
         tags:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
+
+    miniblog.exception_subscriber:
+        class: App\Events\ExceptionListener
+        arguments:
+            - '@serializer'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    miniblog.normalizer.resource_access_exception:
+        class: App\Normalizer\ResourceAccessExceptionNormalizer
+        arguments: 
+            - { type: 'App\Exceptions\ResourceAccessException' }
+        tags:
+            - { name: 'miniblog\normalizer' }
+
+    miniblog.normalizer.authentification_exception:
+        class: App\Normalizer\AuthentificationExceptionNormalizer
+        arguments:
+            - { type: 'App\Exceptions\AuthentificationException' }
+        tags:
+            - { name: 'miniblog.normalizer' }
