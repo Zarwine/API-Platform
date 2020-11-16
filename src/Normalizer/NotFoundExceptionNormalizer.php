@@ -6,10 +6,10 @@ namespace App\Normalizer;
 
 use Symfony\Component\HttpFoundation\Response;
 
-class ResourceAccessExceptionNormalizer extends AbstractNormalizer
+class NotFoundExceptionNormalizer extends AbstractNormalizer
 {
     public function normalize(\Exception $exception): array
     {
-        return $this->exceptionNormalizerFormater->format($exception->getMessage(), Response::HTTP_UNAUTHORIZED);
+        return $this->exceptionNormalizerFormater->format($exception->getMessage(), Response::HTTP_NOT_FOUND);
     }
 }

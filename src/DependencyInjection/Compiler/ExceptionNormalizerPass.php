@@ -12,7 +12,7 @@ class ExceptionNormalizerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $exceptionListenerDefinition = $container->findDefinition('miniblog.exception_subscriber');
+        $exceptionListenerDefinition = $container->findDefinition('miniblog.events.exception_subscriber');
 
         $normalizers = $container->findTaggedServiceIds('miniblog.normalizer');
 
