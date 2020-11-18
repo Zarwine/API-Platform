@@ -37,7 +37,7 @@ class Kernel extends BaseKernel
             (require $path)($routes->withPath($path), $this);
         }
     }
-    
+
     protected function build(ContainerBuilder $container)
     {
         parent::build($container);

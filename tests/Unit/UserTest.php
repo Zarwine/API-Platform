@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit;
 
-use App\Entity\User;
 use App\Entity\Article;
+use App\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Doctrine\Common\Collections\Expr\Value;
 
 class UserTest extends TestCase
 {
@@ -22,8 +21,8 @@ class UserTest extends TestCase
 
     public function testGetEmail(): void
     {
-        $value = "test@test.com";
-        
+        $value = 'test@test.com';
+
         $response = $this->user->setEmail($value);
 
         self::assertInstanceOf(User::class, $response);
@@ -43,7 +42,7 @@ class UserTest extends TestCase
 
     public function testGetPassword(): void
     {
-        $value = "123456";
+        $value = '123456';
         $response = $this->user->setPassword($value);
 
         self::assertInstanceOf(User::class, $response);
@@ -64,8 +63,5 @@ class UserTest extends TestCase
         self::assertInstanceOf(User::class, $response);
         self::assertCount(0, $this->user->getArticles());
         self::assertFalse($this->user->getArticles()->contains($value));
-        
     }
-  
-
 }

@@ -9,7 +9,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait Timestampable
 {
     /**
-     * @var \DateTimeInterface
      * @ORM\Column(type="datetime")
      * @Groups({"user_read", "article_read", "user_details_read", "article_details_read"})
      */

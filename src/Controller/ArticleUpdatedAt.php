@@ -10,7 +10,7 @@ class ArticleUpdatedAt
 {
     public function __invoke(Article $data): Article
     {
-        $data->getUpdatedAt(new \DateTimeImmutable("now"));
+        $data->getUpdatedAt(new \DateTimeImmutable('now'));
 
         return $data;
     }

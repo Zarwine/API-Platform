@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Events;
 
-use App\Entity\User;
 use ApiPlatform\Core\EventListener\EventPriorities;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\Event\ViewEvent;
+use App\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class PasswordEncoderSubscriber implements EventSubscriberInterface
-{    
+{
     private UserPasswordEncoderInterface $encoder;
 
     public function __construct(UserPasswordEncoderInterface $encoder)
@@ -23,7 +23,7 @@ class PasswordEncoderSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['encodePassword', EventPriorities::PRE_WRITE]
+            KernelEvents::VIEW => ['encodePassword', EventPriorities::PRE_WRITE],
         ];
     }
 
@@ -31,9 +31,9 @@ class PasswordEncoderSubscriber implements EventSubscriberInterface
     {
         $user = $event->getControllerResult();
 
-        if($user instanceof User) {
+        if ($user instanceof User) {
             $passHash = $this->encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($passHash); 
+            $user->setPassword($passHash);
         }
     }
 }

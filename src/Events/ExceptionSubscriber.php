@@ -7,11 +7,11 @@ namespace App\Events;
 use App\Factory\JsonResponseInterface;
 use App\Normalizer\NormalizerInterface;
 use App\Services\ExceptionNormalizerFormaterInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ExceptionSubscriber implements EventSubscriberInterface
 {
@@ -24,7 +24,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
         SerializerInterface $serializer,
         ExceptionNormalizerFormaterInterface $exceptionNormalizerFormater,
         JsonResponseInterface $jsonResponse
-        )    {
+    ) {
         $this->serializer = $serializer;
         $this->exceptionNormalizerFormater = $exceptionNormalizerFormater;
         $this->jsonResponse = $jsonResponse;
@@ -33,7 +33,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::EXCEPTION => [['processException', 0]]
+            KernelEvents::EXCEPTION => [['processException', 0]],
         ];
     }
 
@@ -45,7 +45,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
         /** @var NormalizerInterface $normalizer */
         foreach (self::$normalizers as $key => $normalizer) {
-            if($normalizer->supports($exception)) {
+            if ($normalizer->supports($exception)) {
                 $result = $normalizer->normalize($exception);
                 break;
             }
@@ -60,10 +60,9 @@ class ExceptionSubscriber implements EventSubscriberInterface
             $this->serializer->serialize($result, 'json')
         ));
     }
-    
+
     public function addNormalizer(NormalizerInterface $normalizer)
     {
         self::$normalizers[] = $normalizer;
     }
-
 }

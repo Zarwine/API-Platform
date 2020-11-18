@@ -14,9 +14,9 @@ class JWTCreatedListener
 
     public function __construct(Security $security)
     {
-            $this->user = $security->getUser();
+        $this->user = $security->getUser();
     }
-    
+
     public function onJWTCreated(JWTCreatedEvent $event)
     {
         $payload = $event->getData();

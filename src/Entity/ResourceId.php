@@ -15,7 +15,7 @@ trait ResourceId
      * @Groups({"user_read", "article_read", "user_details_read", "article_details_read"})
      */
     private int $id;
-    
+
     public function getId(): ?int
     {
         return $this->id;

@@ -11,8 +11,8 @@ class ExceptionNormalizerFormater implements ExceptionNormalizerFormaterInterfac
     public function format(string $message, int $statusCode = Response::HTTP_BAD_REQUEST): array
     {
         return [
-            'code'    => $statusCode,
-            'message' => $message
+            'code' => $statusCode,
+            'message' => $message,
         ];
     }
 }

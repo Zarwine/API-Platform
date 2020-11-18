@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\User;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Controller\ArticleUpdatedAt;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -59,7 +58,7 @@ class Article
      * @Groups({"article_details_read"})
      */
     private UserInterface $author;
-    
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();

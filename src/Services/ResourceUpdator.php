@@ -14,7 +14,7 @@ class ResourceUpdator implements ResourceUpdatorInterface
     protected array $methodAllowed = [
         Request::METHOD_PUT,
         Request::METHOD_PATCH,
-        Request::METHOD_DELETE
+        Request::METHOD_DELETE,
     ];
     private ResourceAccessCheckerInterface $resourceAccessChecker;
     private AuthentificationCheckerInterface $authentificationChecker;
@@ -26,6 +26,7 @@ class ResourceUpdator implements ResourceUpdatorInterface
         $this->resourceAccessChecker = $resourceAccessChecker;
         $this->authentificationChecker = $authentificationChecker;
     }
+
     public function process(string $method, UserInterface $user): bool
     {
         if (in_array($method, $this->methodAllowed, true)) {

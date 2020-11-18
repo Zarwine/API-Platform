@@ -16,7 +16,7 @@ class ExceptionNormalizerPass implements CompilerPassInterface
 
         $normalizers = $container->findTaggedServiceIds('miniblog.normalizer');
 
-        foreach($normalizers as $normalizer => $tags) {
+        foreach ($normalizers as $normalizer => $tags) {
             $exceptionListenerDefinition->addMethodCall('addNormalizer', [new Reference($normalizer)]);
         }
     }

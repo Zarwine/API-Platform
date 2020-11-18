@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit;
 
-use App\Entity\User;
 use App\Entity\Article;
+use App\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Doctrine\Common\Collections\Expr\Value;
 
 class ArticleTest extends TestCase
 {
@@ -22,7 +21,7 @@ class ArticleTest extends TestCase
 
     public function testGetName(): void
     {
-        $value = "Le nom du test";
+        $value = 'Le nom du test';
 
         $response = $this->article->setName($value);
 
@@ -32,8 +31,8 @@ class ArticleTest extends TestCase
 
     public function testGetContent(): void
     {
-        $value = "Le contenu du test";
-        
+        $value = 'Le contenu du test';
+
         $response = $this->article->setContent($value);
 
         self::assertInstanceOf(Article::class, $response);
@@ -43,7 +42,7 @@ class ArticleTest extends TestCase
     public function testGetAuthor(): void
     {
         $value = new User();
-        
+
         $response = $this->article->setAuthor($value);
 
         self::assertInstanceOf(Article::class, $response);

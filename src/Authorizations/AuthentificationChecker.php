@@ -17,7 +17,7 @@ class AuthentificationChecker implements AuthentificationCheckerInterface
     {
         $this->user = $security->getUser();
     }
-    
+
     public function isAuthenticated(): void
     {
         if (null === $this->user) {
