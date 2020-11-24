@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: mysql:5
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - ./data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "9999:80"
+    depends_on:
+      - db
+
+  php:
+    build: docker/php
+    ports:
+      - "8888:80"
+    depends_on:
+      - db
+    volumes:
+      - ./docker/vhosts:/etc/apache2/sites-enabled
+      - ./:/var/www

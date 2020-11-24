@@ -7,6 +7,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Controller\ArticleUpdatedAt;
 use App\Repository\ArticleRepository;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
