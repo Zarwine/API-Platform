@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserTest extends AbstractEndPoint
 {
-    private string $userPayload = '{"username": "%s", "password": "123456"}';
+    private string $userPayload = '{"email": "%s", "password": "123456"}';
 
     public function testGetUsers(): void
     {
@@ -39,6 +39,7 @@ class UserTest extends AbstractEndPoint
             [],
             false
         );
+
         $responseContent = $response->getContent();
         $responseDecoded = json_decode($responseContent, true);
 
