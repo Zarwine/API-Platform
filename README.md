@@ -1,5 +1,5 @@
 # API-Plateforme
-Un projet réalisé dans le but d'utiliser API Plateforme dans le cadre d'une application Symfony
+Un projet réalisé dans le but d'utiliser API Platform dans le cadre d'une application Symfony
 
 # Installation
 - Cloner le projet : `git clone git@github.com:Zarwine/API-Plateforme.git`
