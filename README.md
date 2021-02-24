@@ -1,4 +1,4 @@
-# API-Plateforme
+# API-Platform
 Un projet réalisé dans le but d'utiliser API Platform dans le cadre d'une application Symfony
 
 # Installation
